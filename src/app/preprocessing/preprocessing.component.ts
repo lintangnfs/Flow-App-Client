@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { DataServicesService } from '../data-services.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import {NgForm} from '@angular/forms';
+import { LogHeader } from '../log-header';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-preprocessing',
@@ -11,9 +17,10 @@ export class PreprocessingComponent implements OnInit {
 
   private activeTab
   private progressmode = 'determinate'
+  
 
   constructor(private router: Router, private route: ActivatedRoute, private titleService: Title) {
-    this.titleService.setTitle('Display Graph')
+    this.titleService.setTitle('Preprocessing')
   }
 
   ngOnInit() {

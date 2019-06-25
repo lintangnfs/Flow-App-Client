@@ -26,6 +26,8 @@ export class DataServicesService {
   public _statisticSummaryUrl = this._ip + 'api/statisticsummary'
   public _filterUrl = this._ip + 'api/filter'
   public _attemptUrl = this._ip + 'api/countattempt'
+  public _changecaseid = this._ip + 'api/changecaseid'
+  public _choosealpha = this._ip + 'api/choosealpha'
 
   constructor(private http: HttpClient) { }
 
@@ -181,5 +183,27 @@ export class DataServicesService {
     }
     return this.http.post(this._filterUrl, data, options)
   }
+
+  getChangeCaseId() {
+    return this.http.get(this._changecaseid)
+  }
+
+  sendChangeCaseId(data) {
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.post(this._changecaseid, data, options)
+  }
+
+  alphaChoose(formData: FormData) {
+    return this.http.post(this._choosealpha, formData)
+  }
+
+  alphaChooseHead() {
+    return this.http.get(this._choosealpha)
+  }
+
 
 }

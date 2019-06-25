@@ -4,7 +4,7 @@ import {NgForm} from '@angular/forms';
 import { LogHeader } from '../log-header';
 import { Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { catchError, map, tap } from 'rxjs/operators'
+import { catchError, map, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

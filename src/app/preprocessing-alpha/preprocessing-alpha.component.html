@@ -1,3 +1,71 @@
-<p>
-  preprocessing-alpha works!
-</p>
+<!-- <mat-progress-bar *ngIf="value > 0" [value]='value' color='primary'></mat-progress-bar> -->
+<!-- <div class="page-header">
+    <h1>Preprocessing Data</h1>
+</div> -->
+
+<mat-horizontal-stepper labelPosition='bottom' (selectionChange)='stepChange($event)'>
+  <mat-step>
+      <ng-template matStepLabel>Change ID</ng-template>
+      <mat-card>
+          <mat-card-header>
+              <mat-card-title>Change ID</mat-card-title>
+              <mat-card-subtitle>Change value in column </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content *ngIf="changeReady">
+              <form *ngIf="changeColumn" #join='ngForm' (ngSubmit)='submitChange(join)'>
+                  <mat-form-field style="width: 100%;">
+                      <mat-select name='col1' placeholder="User full name column" required ngModel>
+                          <mat-option *ngFor="let col of changeColumn" [value]="col">{{ col }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field style="width: 100%;">
+                      <mat-select name='col2' placeholder="Affected user column" required ngModel>
+                          <mat-option *ngFor="let col of changeColumn" [value]="col">{{ col }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field style="width: 100%;">
+                    <mat-select name='col3' placeholder="Event name column" required ngModel>
+                        <mat-option *ngFor="let col of changeColumn" [value]="col">{{ col }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field style="width: 100%;">
+                    <mat-select name='value' placeholder="Value that will be used" required ngModel>
+                        <mat-option value="Course completed">Course Completed</mat-option>
+                        <mat-option value="Course activity completion updated">Course Activity Completion Updated</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <button mat-raised-button matStepperNext type='button'>Next</button>
+                  <button mat-raised-button id="changeSubmit" type="submit" name="submit" class="button" style="float: right;" color='primary' [disabled]='join.invalid'>Submit</button>
+              </form>
+          </mat-card-content>
+      </mat-card>
+  </mat-step>
+  <mat-step>
+      <ng-template matStepLabel>Choose Column</ng-template>
+      <mat-card>
+          <mat-card-header>
+              <mat-card-title>Choose Column</mat-card-title>
+              <mat-card-subtitle>Chosse 2 column that will be used as case id and event</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content *ngIf="chooseReady">
+              <form #choose="ngForm" (ngSubmit)="submitChoose(choose)">
+                  <h4>Case ID</h4>
+                  <mat-form-field style="width: 100%;">
+                      <mat-select placeholder="case id" name='case_id' [(ngModel)]='case_id' required>
+                          <mat-option *ngFor="let h of chooseData; let i = index" [value]="i">{{ h }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <h4>Event</h4>
+                  <mat-form-field style="width: 100%;">
+                      <mat-select placeholder="event" name='event' [(ngModel)]='event' required>
+                          <mat-option *ngFor="let h of chooseData; let i = index" [value]="i">{{ h }}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <button mat-raised-button matStepperPrevious type='button'>Back</button>
+                  <button mat-raised-button id='chooseSubmit' type="submit" name="submit" class="button" color="primary" style="float: right;" color='primary' [disabled]='choose.invalid'>Submit</button>
+              </form>
+          </mat-card-content>
+      </mat-card>
+  </mat-step>
+</mat-horizontal-stepper>
+
