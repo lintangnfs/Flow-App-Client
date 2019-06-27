@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataServicesService } from '../data-services.service';
 import { MatTableDataSource, MatPaginator, MatSort, MatSnackBar } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-algoritma',
@@ -32,7 +33,7 @@ export class AlgoritmaComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
 
-  constructor(private dataService: DataServicesService, private snackbar: MatSnackBar) {
+  constructor(private dataService: DataServicesService, private snackbar: MatSnackBar, private _sanitizer: DomSanitizer) {
     
   }
 
@@ -61,7 +62,7 @@ export class AlgoritmaComponent implements OnInit {
         this.pairs = data.data.pairs
         this.maximalPairs = data.data.maximalPairs
         this.places = data.data.places
-        this.image = atob(data.data.image)
+        this.image = this._sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + data.data.image)
         console.log(this.image)
       } else {
         console.log(data)
