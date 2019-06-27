@@ -28,6 +28,7 @@ export class DataServicesService {
   public _attemptUrl = this._ip + 'api/countattempt'
   public _changecaseid = this._ip + 'api/changecaseid'
   public _choosealpha = this._ip + 'api/choosealpha'
+  public _algoritmaAlpha = this._ip + 'api/algoritmaalpha'
 
   constructor(private http: HttpClient) { }
 
@@ -203,6 +204,10 @@ export class DataServicesService {
 
   alphaChooseHead() {
     return this.http.get(this._choosealpha)
+  }
+
+  getAlphaData() {
+    return this.http.get(this._algoritmaAlpha)
   }
 
 
