@@ -96,7 +96,7 @@
                     <mat-card-subtitle>Drop column that aren't needed</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content >
-                        <p>{{ pairs }}</p>
+                    <p *ngFor="let value of final_pairs">{{ value }}</p>
                 </mat-card-content>
             </mat-card>
         </mat-step>
@@ -120,15 +120,15 @@
                   <mat-card-subtitle>Chosse 3 column that will be used as case id, event and timestamp</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content >
-                    <p><strong>{{ places }}</strong></p>
+                    <p>{{ places }}</p>
               </mat-card-content>
           </mat-card>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Extract Petri Net</ng-template>
+        <ng-template matStepLabel>Petri Net</ng-template>
         <mat-card>
             <mat-card-header>
-                <mat-card-title>Choose Column</mat-card-title>
+                <mat-card-title>8. Petri Net</mat-card-title>
                 <mat-card-subtitle>Chosse 3 column that will be used as case id, event and timestamp</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>

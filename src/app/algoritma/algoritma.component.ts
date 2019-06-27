@@ -29,6 +29,8 @@ export class AlgoritmaComponent implements OnInit {
   private maximalPairs
   private places
   private image
+  private split_pairs
+  private final_pairs
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
@@ -59,7 +61,12 @@ export class AlgoritmaComponent implements OnInit {
         this.initialTransition = data.data.initialTransition
         this.finalTransition = data.data.finalTransition
         this.relation = data.data.relation
-        this.pairs = data.data.pairs
+        this.split_pairs = data.data.pairs
+        this.pairs = this.split_pairs.replace('[{"pairs":' , '')
+        this.pairs = this.pairs.replace('}]', '')
+        this.final_pairs = this.pairs.split('}, {"pairs":')
+
+        // this.pairs = this.split_pairs.split("], [")
         this.maximalPairs = data.data.maximalPairs
         this.places = data.data.places
         this.image = this._sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + data.data.image)
