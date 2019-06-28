@@ -31,9 +31,17 @@ export class AlgoritmaComponent implements OnInit {
   private image
   private split_pairs
   private final_pairs
+  private pairss
+
+  private relationData
+  private displayedColumnsRelation
+  private columnsToDisplayRelation
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
+
+  @ViewChild(MatPaginator) paginatorRelation: MatPaginator
+  @ViewChild(MatSort) sortRelation: MatSort
 
   constructor(private dataService: DataServicesService, private snackbar: MatSnackBar, private _sanitizer: DomSanitizer) {
     
@@ -56,20 +64,46 @@ export class AlgoritmaComponent implements OnInit {
         this.columnsToDisplay = this.displayedColumns.slice()
         this.display = 'block'
         this.isHidden = false
-        // Transition dkk
+        // Transition
         this.transition = data.data.transition
+        // this.transition = this.transition.replace()
+
         this.initialTransition = data.data.initialTransition
         this.finalTransition = data.data.finalTransition
         this.relation = data.data.relation
+
+        // Pair edit view
         this.split_pairs = data.data.pairs
         this.pairs = this.split_pairs.replace('[{"pairs":' , '')
         this.pairs = this.pairs.replace('}]', '')
+        this.pairs = this.pairs.replace(/]]/g, ']')
+        this.pairs = this.pairs.replace(/\[\[/g, '[')
         this.final_pairs = this.pairs.split('}, {"pairs":')
 
-        // this.pairs = this.split_pairs.split("], [")
+        // Maximal Pairs edit view
         this.maximalPairs = data.data.maximalPairs
+        this.maximalPairs = this.maximalPairs.replace('[{"pairs":' , '')
+        this.maximalPairs = this.maximalPairs.replace('}]', '')
+        this.maximalPairs = this.maximalPairs.replace(/]]/g, ']')
+        this.maximalPairs = this.maximalPairs.replace(/\[\[/g, '[')
+        this.maximalPairs = this.maximalPairs.split('}, {"pairs":')
+
+        // Places Edit view
         this.places = data.data.places
+        this.places = this.places.replace('[{"pairs":' , '')
+        this.places = this.places.replace('}]', '')
+        this.places = this.places.replace(/]]/g, ']')
+        this.places = this.places.replace(/\[\[/g, '[')
+        this.places = this.places.split('}, {"pairs":')
+
         this.image = this._sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + data.data.image)
+
+        // Relation display
+        this.relationData = new MatTableDataSource(data.data.relation_data)
+        this.relationData.paginator = this.paginatorRelation
+        this.relationData.sort = this.sortRelation
+        this.displayedColumnsRelation = data.data.relation_column
+        this.columnsToDisplayRelation = this.displayedColumnsRelation.slice()
         console.log(this.image)
       } else {
         console.log(data)

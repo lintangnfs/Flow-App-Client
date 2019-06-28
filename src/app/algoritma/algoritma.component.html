@@ -6,10 +6,10 @@
 <div class="page-content">
     <mat-horizontal-stepper labelPosition='bottom'>
         <mat-step>
-            <ng-template matStepLabel>Transition</ng-template>
+            <ng-template matStepLabel>Task</ng-template>
             <mat-card>
                 <mat-card-header>
-                    <mat-card-title>1. Transition</mat-card-title>
+                    <mat-card-title>1. Task</mat-card-title>
                     <mat-card-subtitle>First step of Alpha Miner Algorithm </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content >
@@ -40,10 +40,10 @@
                         <mat-expansion-panel>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    Transition
+                                    Activities
                                 </mat-panel-title>
                                 <mat-panel-description>
-                                    All transition in event log
+                                    All activities in event log
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
                             <p>{{ transition }}</p>
@@ -77,26 +77,39 @@
             </mat-card>
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Extract Relation</ng-template>
+            <ng-template matStepLabel>Relation</ng-template>
             <mat-card>
                 <mat-card-header>
-                    <mat-card-title>4. Extract Relation</mat-card-title>
+                    <mat-card-title>4. Relation</mat-card-title>
                     <mat-card-subtitle>Relation in Event log</mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content>
-                        <p>{{ relation }}</p>
+                <mat-card-content >
+                    <div [ngStyle]="{'display': display}" >
+                        <div class="mat-elevation-z8" style="overflow: auto">
+                            <table mat-table matSort [dataSource]="relationData">
+                                <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumnsRelation">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column }} </th>
+                                    <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="columnsToDisplayRelation"></tr>
+                                <tr mat-row *matRowDef="let row; columns: columnsToDisplayRelation"></tr>
+                            </table>
+                        </div>
+                        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons ></mat-paginator>
+                    </div>
                 </mat-card-content>
             </mat-card>
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Compute Pairs</ng-template>
+            <ng-template matStepLabel>Pairs</ng-template>
             <mat-card>
                 <mat-card-header>
-                    <mat-card-title>5. Compute Pairs</mat-card-title>
-                    <mat-card-subtitle>Drop column that aren't needed</mat-card-subtitle>
+                    <mat-card-title>5. Pairs</mat-card-title>
+                    <mat-card-subtitle>All pairs based on relation between activities</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content >
                     <p *ngFor="let value of final_pairs">{{ value }}</p>
+                    <!-- <p>{{split_pairs}}</p> -->
                 </mat-card-content>
             </mat-card>
         </mat-step>
@@ -108,7 +121,7 @@
                     <mat-card-subtitle>Chosse 3 column that will be used as case id, event and timestamp</mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content >
-                        <p>{{ maximalPairs }}</p>
+                        <p *ngFor="let value of maximalPairs">{{ value }}</p>
                 </mat-card-content>
             </mat-card>
         </mat-step>
@@ -120,7 +133,7 @@
                   <mat-card-subtitle>Chosse 3 column that will be used as case id, event and timestamp</mat-card-subtitle>
               </mat-card-header>
               <mat-card-content >
-                    <p>{{ places }}</p>
+                <p *ngFor="let value of places">{{ value }}</p>
               </mat-card-content>
           </mat-card>
       </mat-step>
